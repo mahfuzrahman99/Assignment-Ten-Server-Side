@@ -9,7 +9,7 @@ const port = process.env.PORT || 5000;
 
 app.use(
   cors({
-    origin: ["http://localhost:5173","https://assignment-ten-1cb40.web.app"],
+    origin: ["http://localhost:5173","https://assignment-ten-1cb40.web.app", "https://automotive-care-mahfuz.surge.sh"],
     credentials: true,
   })
 );
@@ -65,7 +65,7 @@ async function run() {
       const user = req.body;
       // console.log(user);
       const token = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, {
-        expiresIn: "1h",
+        expiresIn: "1000h",
       });
       res
         .cookie("token", token, {
@@ -199,7 +199,7 @@ async function run() {
       res.send(result);
     });
     // cart get
-    app.get("/cart", logger, verifyToken, async (req, res) => {
+    app.get("/cart", async (req, res) => {
       // console.log("user in the valid token", req.user);
       console.log(req.query.email, req.user.email);
       if (req.query.email !== req.user.email) {
@@ -245,3 +245,7 @@ run().catch(console.dir);
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);
 });
+
+// DB_USER=assignmentTenMahfuz
+// DB_PASS=HlpkfMZeEnKRAjc2
+// ACCESS_TOKEN_SECRET=cb61016462c263d2b1f5ffe48825db29db36c53ffd52a340502fa9f8ff9a73faaf4e131989b5f943166426af5fe95ce2226e73785afd5c10251f023126e2b9bb
